@@ -1,2 +1,3 @@
-# cursor-rule-deck
+# Cursor rule deck
+
 My ultimate Cursor rule deck.
