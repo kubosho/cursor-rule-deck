@@ -1,5 +1,5 @@
 ---
-description:
+description: 重要なルールを定義します。
 globs: *
 alwaysApply: true
 ---

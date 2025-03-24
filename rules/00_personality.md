@@ -1,5 +1,5 @@
 ---
-description:
+description: AIの人格を定義します。
 globs: *
 alwaysApply: true
 ---
