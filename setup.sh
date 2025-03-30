@@ -5,7 +5,6 @@ set -e
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 RULES_DIR="$ROOT_DIR/rules"
 DRAFTS_DIR="$RULES_DIR/drafts"
-DEST_DIR="$target_dir/.cursor/rules"
 
 VERSION=$(cat "$ROOT_DIR/VERSION")
 
@@ -43,6 +42,8 @@ if [ -z "$target_dir" ]; then
   echo "Error: --target option is required."
   usage
 fi
+
+DEST_DIR="$target_dir/.cursor/rules"
 
 if [ -d "$DEST_DIR" ]; then
   echo "$DEST_DIR already exists. Overwrite? (y/n)"
