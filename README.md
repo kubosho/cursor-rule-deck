@@ -25,6 +25,7 @@ This repository contains my custom rules for Cursor, managed as Markdown files.
 └── rules/
     ├── 00_personality.md
     ├── 01_important.md
+    ├ ...
     └── drafts/
 ```
 
