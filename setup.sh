@@ -2,11 +2,12 @@
 
 set -e
 
-VERSION="1.0.0"
-
-RULES_DIR="$(cd "$(dirname "$0")" && pwd)/rules"
+ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
+RULES_DIR="$ROOT_DIR/rules"
 DRAFTS_DIR="$RULES_DIR/drafts"
 DEST_DIR="$target_dir/.cursor/rules"
+
+VERSION=$(cat "$ROOT_DIR/VERSION")
 
 usage() {
   echo "Usage: $0 --target <target-directory>"
@@ -17,7 +18,6 @@ usage() {
   exit 0
 }
 
-# 引数パース
 target_dir=""
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -29,7 +29,7 @@ while [[ $# -gt 0 ]]; do
       usage
       ;;
     --version)
-      echo "setup.sh version $VERSION"
+      echo "$VERSION"
       exit 0
       ;;
     *)
