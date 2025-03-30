@@ -14,7 +14,7 @@ alwaysApply: false
 
 [Angularの規約](mdc:https:/github.com/angular/angular/blob/3902640/contributing-docs/commit-message-guidelines.md)に準拠します。
 
-特に指示がなければ英語でメッセージを作成し、理由は日本語で説明します。
+特に指示がなければ、**英語**でメッセージを作成します。 そのメッセージにした理由は**日本語**で説明します。
 
 - typeは `git --no-pager diff` から判断
 - scopeは影響範囲を記載
@@ -26,7 +26,7 @@ alwaysApply: false
 
 - CLI上では直接改行できないため、`-m` オプションを複数回使用
   ```sh
-  git commit -m "feat(scope): タイトル" -m "詳細な説明"
+  git commit -m "feat(scope): add new feature" -m "Add description about the feature"
   ```
 - 一行目は件名（50文字以内）、二行目以降は本文
 - メッセージ全体で100文字以内に収める
