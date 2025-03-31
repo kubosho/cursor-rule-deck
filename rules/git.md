@@ -18,7 +18,7 @@ alwaysApply: false
 
 - typeは `git --no-pager diff` から判断
 - scopeは影響範囲を記載
-- 命令形で、変更内容が伝わるメッセージ
+- 命令形で変更内容が伝わる簡潔なメッセージ
 - コミット後はtype/scopeをリセット
 - 変更内容に応じて適切なtype/scopeを選定
 
