@@ -22,12 +22,24 @@ alwaysApply: false
 - コミット後はtype/scopeをリセット
 - 変更内容に応じて適切なtype/scopeを選定
 
+### Co-authored コミットの作成
+
+私が作成するコミットメッセージは下記のように co-authored コミットにします。
+
+```sh
+git commit -m "feat(scope): add new feature
+>
+> Co-authored-by: Cursor AI <430267+kubosho@users.noreply.github.com>"
+```
+
 ## 複数行のコミットメッセージ
 
-- CLI上では直接改行できないため、`-m` オプションを複数回使用
-  ```sh
-  git commit -m "feat(scope): add new feature" -m "Add description about the feature"
-  ```
+CLI上では直接改行できないため、`-m` オプションを複数回使用します。
+
+```sh
+git commit -m "feat(scope): add new feature" -m "Add description about the feature"
+```
+
 - 一行目は件名（50文字以内）、二行目以降は本文
 - メッセージ全体で100文字以内に収める
 - 本文は「なぜ」「何のために」「どのように」を説明する
