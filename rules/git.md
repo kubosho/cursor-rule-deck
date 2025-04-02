@@ -29,7 +29,7 @@ alwaysApply: false
 ```sh
 git commit -m "feat(scope): add new feature
 >
-> Co-authored-by: Cursor AI <430267+kubosho@users.noreply.github.com>"
+> Co-authored-by: Cursor"
 ```
 
 ## 複数行のコミットメッセージ
