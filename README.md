@@ -13,14 +13,14 @@ This repository contains my custom rules for Cursor, managed as Markdown files.
 ## Setup
 
 ```bash
-./setup.sh --target /path/to/your/project
+./setup.sh /path/to/your/project
 ```
 
 ### Setup options
 
 ```bash
-# Can use positional argument
-./setup.sh /path/to/your/project
+# Can use --target option
+./setup.sh --target /path/to/your/project
 # Can change the output directory with `--rules-dir` (default: .cursor/rules)
 ./setup.sh --target /path/to/your/project --rules-dir {your_custom_directory}
 ```
