@@ -9,21 +9,27 @@ DRAFTS_DIR="$RULES_DIR/drafts"
 VERSION=$(cat "$ROOT_DIR/VERSION")
 
 usage() {
-  echo "Usage: $0 [--target <target-directory>] | [target-directory]"
+  echo "Usage: $0 [--target <target-directory>] [--rules-dir <rules-directory>] | [target-directory]"
   echo "Options:"
-  echo "  --target   Specify the target directory to set up rules. (takes precedence over positional argument)"
-  echo "  --help     Show this help message."
-  echo "  --version  Show script version."
+  echo "  --target     Specify the target directory to set up rules. (takes precedence over positional argument)"
+  echo "  --rules-dir  Specify the rules directory relative to target (default: .cursor/rules)"
+  echo "  --help       Show this help message."
+  echo "  --version    Show script version."
   exit 0
 }
 
 target_dir=""
+rules_dir=".cursor/rules"
 # Parse options
 declare -a POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
   case $1 in
     --target)
       target_dir=$2
+      shift 2
+      ;;
+    --rules-dir)
+      rules_dir=$2
       shift 2
       ;;
     --help)
@@ -55,7 +61,7 @@ if [ -z "$target_dir" ]; then
   usage
 fi
 
-DEST_DIR="$target_dir/.cursor/rules"
+DEST_DIR="$target_dir/$rules_dir"
 
 if [ -d "$DEST_DIR" ]; then
   echo "$DEST_DIR already exists. Overwrite? (y/n)"
