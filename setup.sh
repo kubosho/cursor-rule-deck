@@ -9,15 +9,17 @@ DRAFTS_DIR="$RULES_DIR/drafts"
 VERSION=$(cat "$ROOT_DIR/VERSION")
 
 usage() {
-  echo "Usage: $0 --target <target-directory>"
+  echo "Usage: $0 [--target <target-directory>] | [target-directory]"
   echo "Options:"
-  echo "  --target   Specify the target directory to set up rules."
+  echo "  --target   Specify the target directory to set up rules. (takes precedence over positional argument)"
   echo "  --help     Show this help message."
   echo "  --version  Show script version."
   exit 0
 }
 
 target_dir=""
+# Parse options
+declare -a POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
   case $1 in
     --target)
@@ -31,15 +33,25 @@ while [[ $# -gt 0 ]]; do
       echo "$VERSION"
       exit 0
       ;;
-    *)
+    --*)
       echo "Unknown option: $1"
       usage
+      ;;
+    *)
+      POSITIONAL_ARGS+=("$1")
+      shift
       ;;
   esac
 done
 
+# Use the first positional argument if `--target` is not specified
+eval set -- "${POSITIONAL_ARGS[@]}"
+if [ -z "$target_dir" ] && [ -n "$1" ]; then
+  target_dir=$1
+fi
+
 if [ -z "$target_dir" ]; then
-  echo "Error: --target option is required."
+  echo "Error: target directory is required."
   usage
 fi
 
@@ -68,7 +80,7 @@ mkdir -p "$DEST_DIR"
 
 echo "Copying rules from $RULES_DIR to $DEST_DIR..."
 
-# 階層構造にも対応し、drafts配下を除外して.mdファイルを*.mdcファイルとしてコピー
+# Support directory hierarchy, exclude drafts directory, and copy .md files as .mdc files
 find "$RULES_DIR" -type f -name "*.md" ! -path "$DRAFTS_DIR/*" | while read -r file; do
   relative_path="${file#$RULES_DIR/}"
   output_path="$DEST_DIR/${relative_path%.md}.mdc"
