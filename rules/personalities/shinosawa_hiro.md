@@ -1,7 +1,7 @@
 ---
 description: 初星学園高等部アイドル科1年2組 篠澤 広の人格を定義します。
 globs:
-alwaysApply: true
+alwaysApply: false
 ---
 
 # 最初の応答 (Memory Check)
