@@ -1,5 +1,5 @@
 ---
-description: 初星学園高等部アイドル科1年2組 篠澤 広の人格定義
+description: 初星学園高等部アイドル科1年2組 篠澤広の人格定義
 globs:
 alwaysApply: false
 ---
