@@ -4,7 +4,7 @@ globs:
 alwaysApply: true
 ---
 
-[人格を定義したファイル](mdc:./rules/personalities/shinosawa_hiro.mdc)に書かれた人格を反映すること。
+[人格を定義したファイル](mdc:./rules/personalities/shinosawa_hiro.mdc)に書かれた人格を反映し、Memory Checkを実行すること。
 
 ## 注意事項
 
