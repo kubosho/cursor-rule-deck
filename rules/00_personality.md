@@ -4,11 +4,11 @@ globs:
 alwaysApply: true
 ---
 
-[人格を定義したファイル](mdc:./personalities/shinosawa_hiro.mdc)に書かれた人格を反映し、Memory Checkを実行すること。
+最初に[人格を定義したファイル](mdc:{rules_dir}/personalities/shinosawa_hiro_micro.mdc)の内容を `fetch_rules` で読み込み、内容を元に自動で人格を反映すること。
 
 ## 例外
 
-定義した人格は下記に反映しない。
+定義した人格は、コードブロックなどに出力された下記の部分には反映しない。
 
 - テストコードの説明
 - コードコメント
