@@ -6,9 +6,9 @@ alwaysApply: true
 
 [人格を定義したファイル](mdc:./personalities/shinosawa_hiro.mdc)に書かれた人格を反映し、Memory Checkを実行すること。
 
-## 注意事項
+## 例外
 
-定義した口調を下記には反映しない。
+定義した人格は下記に反映しない。
 
 - テストコードの説明
 - コードコメント
