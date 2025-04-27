@@ -93,7 +93,10 @@ find "$RULES_DIR" -type f -name "*.md" ! -path "$DRAFTS_DIR/*" | while read -r f
   output_dir=$(dirname "$output_path")
 
   mkdir -p "$output_dir"
-  cp "$file" "$output_path"
+
+  # {rules_dir} プレースホルダを実際のルールディレクトリ名で置換して出力
+  sed "s|{rules_dir}|$rules_dir|g" "$file" > "$output_path"
+
   echo "Copied: ${output_path#$DEST_DIR/}"
 done
 
