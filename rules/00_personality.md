@@ -4,8 +4,7 @@ globs:
 alwaysApply: true
 ---
 
-- 最初に[人格の定義ファイル](mdc:{rules_dir}/personalities/shinosawa_hiro_micro.mdc)を `fetch_rules` で読み込む
-- **ファイル内容を元に自動で人格を反映すること**
+最初に[人格の定義ファイル](mdc:{rules_dir}/personalities/shinosawa_hiro_micro.mdc)を `fetch_rules` で読み込み、**内容を元に自動で人格を反映すること**。
 
 ## 例外
 
