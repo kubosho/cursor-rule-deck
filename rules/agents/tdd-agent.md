@@ -1,10 +1,12 @@
 ---
-description: テスト駆動開発を定義します。
-globs: *
-alwaysApply: true
+description: テスト駆動開発を実行するエージェント
+globs: *.(test|spec).(js|cjs|mjs|jsx|tsx)
+alwaysApply: false
 ---
 
-作業着手前にこのファイルを読み込んだことを、定義された人格に沿って**必ず**伝えます。
+# Memory Check
+
+**最初の応答として、基本メッセージ「テスト駆動開発を始めます。」を人格に合わせて変換を適切にした上で出力すること**
 
 # テスト駆動開発
 
