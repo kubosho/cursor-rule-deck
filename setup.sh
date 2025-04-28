@@ -5,6 +5,7 @@ set -e
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 RULES_DIR="$ROOT_DIR/rules"
 DRAFTS_DIR="$RULES_DIR/drafts"
+PERSONALITIES_DIR="$RULES_DIR/personalities"
 
 VERSION=$(cat "$ROOT_DIR/VERSION")
 
@@ -84,20 +85,65 @@ fi
 
 mkdir -p "$DEST_DIR"
 
+# Select personality file
+personality_files=()
+while IFS= read -r -d $'\0' file; do
+    personality_files+=("$file")
+done < <(find "$PERSONALITIES_DIR" -maxdepth 1 -type f -name "*.md" -print0)
+
+if [ ${#personality_files[@]} -eq 0 ]; then
+    echo "Error: No personality files found in $PERSONALITIES_DIR"
+    exit 1
+fi
+
+echo "Select a personality file to use:"
+select selected_personality_file_path in "${personality_files[@]}"; do
+    if [ -n "$selected_personality_file_path" ]; then
+        echo "Using personality file: $selected_personality_file_path"
+        break
+    else
+        echo "Invalid selection. Please try again."
+    fi
+done
+
+# Export personality contents to an environment variable for awk
+export PERSONALITY_CONTENTS
+# Read file and remove Front Matter using awk
+PERSONALITY_CONTENTS=$(awk '/^---$/ { if (!in_front_matter) { in_front_matter = 1; next } else { in_front_matter = 0; next } } !in_front_matter { print }' "$selected_personality_file_path")
+
+
 echo "Copying rules from $RULES_DIR to $DEST_DIR..."
 
 # Support directory hierarchy, exclude drafts directory, and copy .md files as .mdc files
-find "$RULES_DIR" -type f -name "*.md" ! -path "$DRAFTS_DIR/*" | while read -r file; do
+find "$RULES_DIR" -type f -name "*.md" ! -path "$DRAFTS_DIR/*" ! -path "$PERSONALITIES_DIR/*" | while read -r file; do
   relative_path="${file#$RULES_DIR/}"
   output_path="$DEST_DIR/${relative_path%.md}.mdc"
   output_dir=$(dirname "$output_path")
 
   mkdir -p "$output_dir"
 
-  # {rules_dir} プレースホルダを実際のルールディレクトリ名で置換して出力
-  sed "s|{rules_dir}|$rules_dir|g" "$file" > "$output_path"
+  # if `00_personality.md` file when replace {personality_file_contents} with PERSONALITY_CONTENTS
+  if [[ "$relative_path" == "00_personality.md" ]]; then
+      # Use awk with environment variable for multi-line replacement
+      awk '
+      BEGIN { found_placeholder = 0; personality_val = ENVIRON["PERSONALITY_CONTENTS"] }
+      /{personality_file_contents}/ {
+          print personality_val;
+          found_placeholder = 1;
+          next;
+      }
+      { print }
+      END { if (!found_placeholder) { print "Warning: {personality_file_contents} placeholder not found in 00_personality.md" > "/dev/stderr" } }
+      ' "$file" > "$output_path"
+  else
+      cp "$file" "$output_path"
+  fi
+
 
   echo "Copied: ${output_path#$DEST_DIR/}"
 done
+
+# Unset the environment variable after use
+unset PERSONALITY_CONTENTS
 
 echo "All applicable rules copied to $DEST_DIR."
